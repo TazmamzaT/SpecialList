@@ -32,15 +32,16 @@ public class SpecialList extends AbstractSpecialList {
     		top = new Node(value, top);
     	} else if ( pos > this.length() ) { 
     		Node current = top;
-    		for( int i = 0 ; i <= this.length() - 2; i++) {
+    		while (current.getNext() != null) {
     			current = current.getNext();
     		}
     		current.setNext(new Node(value, null));
     	} else {
     		Node current = top;
-    		for ( int i = 0; i < this.pos; i++) {
-    			
+    		for (int i = 0; i < pos - 1; i++) {
+    			current = current.getNext();
     		}
+    		current.setNext(new Node(value, current));
     	}
     	
 	} // end of add method
