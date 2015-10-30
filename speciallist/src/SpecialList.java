@@ -9,6 +9,8 @@ import java.util.*;
  * For example, [4,9,4] is ok, but [4,4,9] should never occur.
  */
 public class SpecialList extends AbstractSpecialList {
+	private Node top = null;
+	private int length = 0;
 
     /**
      * Add an value to the list at a given position.
@@ -23,7 +25,24 @@ public class SpecialList extends AbstractSpecialList {
      * @param value The value to be added.
      */
     public void add(int pos, int value) {
-
+    	if (length == 0) {
+    		top = new Node(value, null);
+    		length++;
+    	} else if ( pos <= 0 ) {
+    		top = new Node(value, top);
+    	} else if ( pos > this.length() ) { 
+    		Node current = top;
+    		for( int i = 0 ; i <= this.length() - 2; i++) {
+    			current = current.getNext();
+    		}
+    		current.setNext(new Node(value, null));
+    	} else {
+    		Node current = top;
+    		for ( int i = 0; i < this.pos; i++) {
+    			
+    		}
+    	}
+    	
 	} // end of add method
 
     /**
@@ -32,8 +51,7 @@ public class SpecialList extends AbstractSpecialList {
      * @return The current length.
      */
     public int length() {
-
-	return 0;
+    	return length;
 	} // end of length method
 
     /**
