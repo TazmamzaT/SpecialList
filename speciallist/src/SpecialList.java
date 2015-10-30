@@ -30,18 +30,21 @@ public class SpecialList extends AbstractSpecialList {
     		length++;
     	} else if ( pos <= 0 ) {
     		top = new Node(value, top);
-    	} else if ( pos > this.length() ) { 
+    	} else if ( pos >= this.length() ) { 
     		Node current = top;
     		while (current.getNext() != null) {
     			current = current.getNext();
     		}
     		current.setNext(new Node(value, null));
+    		length++;
     	} else {
     		Node current = top;
     		for (int i = 0; i < pos - 1; i++) {
     			current = current.getNext();
     		}
-    		current.setNext(new Node(value, current));
+    		Node addMe = new Node (value, current.getNext());
+    		current.setNext(addMe);
+    		length++;
     	}
     	
 	} // end of add method
