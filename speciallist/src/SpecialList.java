@@ -28,23 +28,29 @@ public class SpecialList extends AbstractSpecialList {
     	if (length == 0) {
     		top = new Node(value, null);
     		length++;
-    	} else if ( pos <= 0 ) {
+    	} else if ( pos <= 0 && value != top.getValue() ) {
     		top = new Node(value, top);
+    		length++;
     	} else if ( pos >= this.length() ) { 
     		Node current = top;
     		while (current.getNext() != null) {
     			current = current.getNext();
     		}
-    		current.setNext(new Node(value, null));
-    		length++;
+    		if (current.getValue() != value) {
+    			current.setNext(new Node(value, null));
+    			length++;
+    		}
+    		
     	} else {
     		Node current = top;
     		for (int i = 0; i < pos - 1; i++) {
     			current = current.getNext();
     		}
-    		Node addMe = new Node (value, current.getNext());
-    		current.setNext(addMe);
-    		length++;
+    		if (current.getValue() != value) {
+    			Node addMe = new Node (value, current.getNext());
+        		current.setNext(addMe);
+        		length++;
+    		}
     	}
     	
 	} // end of add method
@@ -77,8 +83,23 @@ public class SpecialList extends AbstractSpecialList {
      *         If there are no values in the list, 0 is returned.
      */
     public int valueAt(int pos) {
-
-	return 0;
+    	if (length == 0) {
+    		return 0;
+    	} else if ( pos <= 0 ) {
+    		return top.getValue();
+    	} else if ( pos >= this.length() ) { 
+    		Node current = top;
+    		while (current.getNext() != null) {
+    			current = current.getNext();
+    		}
+    		return current.getValue();
+    	} else {
+    		Node current = top;
+    		for (int i = 0; i < pos - 1; i++) {
+    			current = current.getNext();
+    		}
+    		return current.getValue();
+    	}
 	} // end of valueAt method
 
     /**
