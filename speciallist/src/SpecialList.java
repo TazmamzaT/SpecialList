@@ -8,6 +8,7 @@ import java.util.*;
  * will never be two consecutive elements with the same value.
  * For example, [4,9,4] is ok, but [4,4,9] should never occur.
  */
+@SuppressWarnings("serial")
 public class SpecialList extends AbstractSpecialList {
 	private Node top = null;
 	private int length = 0;
