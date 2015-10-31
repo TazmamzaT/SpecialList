@@ -24,7 +24,7 @@ public class SpecialList extends AbstractSpecialList {
      * @param pos The position.
      * @param value The value to be added.
      */
-    public void add(int pos, int value) {
+	public void add(int pos, int value) {
     	if (length == 0) {
     		top = new Node(value, null);
     		length++;
@@ -37,13 +37,12 @@ public class SpecialList extends AbstractSpecialList {
     			current = current.getNext();
     		}
     		if (current.getValue() != value) {
-    			current.setNext(new Node(value, null));
-    			length++;
+	    		current.setNext(new Node(value, null));
+	    		length++;
     		}
-    		
     	} else {
     		Node current = top;
-    		for (int i = 0; i < pos - 1; i++) {
+    		for (int i = 0; i < pos; i++) {
     			current = current.getNext();
     		}
     		if (current.getValue() != value) {
@@ -68,7 +67,15 @@ public class SpecialList extends AbstractSpecialList {
      * Remove all values from the list.
      */
     public void clear() {
-
+    	if (length != 0 || this != null) {
+    		Node current = top;
+    		top = null;
+    		while (current != null) {
+    			Node next = current.getNext();
+    			current.setNext(null);
+    			current = next;
+    		}
+    	}
 	} // end of clear method
 
     /**
@@ -113,8 +120,18 @@ public class SpecialList extends AbstractSpecialList {
      * 	       elements.
      */
     public Vector<Integer> positionsOf(int value) {
-
-	return null;
+    	Vector<Integer> vector = new Vector<Integer>();
+    	int count = 0;
+    	if (this != null) {
+    		Node current = top;
+    		while (current != null) {
+    			if (value == current.getValue()) {
+    				vector.add(count);
+    			}
+    		}
+    		count++;
+    	}
+	return vector;
 	} // end of positionsOf method
 
     /**
@@ -143,7 +160,29 @@ public class SpecialList extends AbstractSpecialList {
      * Make sure the resulting list does not have two consecutive equal values.
      */
     public void shuffle() { 
-
+    	int mod = length % 2;
+    	Node current = top;
+    	SpecialList half1 = new SpecialList();
+    	SpecialList half2 = new SpecialList();
+    	if (mod == 0) {
+    		while(current.getNext() != null) {
+    			for (int i = 0; i < length / 2; i++) {
+    				half1.add(i, this.valueAt(i));
+    			}
+    			for (int i = length / 2; i < length / 2; i++) {
+    				half2.add(i, this.valueAt(i));
+    			}
+    		}
+    	} else if (mod == 1) {
+    		while(current.getNext() != null) {
+    			for (int i = 0; i < (int)(length / 2 + 1); i++) {
+    				half1.add(i, this.valueAt(i));
+    			}
+    			for (int i = (int)(length / 2); i < (int)(length / 2); i++) {
+    				half2.add(i, this.valueAt(i));
+    			}
+    		}
+    	}
 	} // end of shuffle method
 
     /**
